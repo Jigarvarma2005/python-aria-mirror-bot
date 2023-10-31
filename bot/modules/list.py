@@ -12,8 +12,7 @@ def list_drive(update,context):
     search = message.split(' ',maxsplit=1)[1]
     LOGGER.info(f"Searching: {search}")
     gdrive = GoogleDriveHelper(None)
-    msg = gdrive.drive_list(search)
-    if msg:
+    if msg := gdrive.drive_list(search):
         reply_message = sendMessage(msg, context.bot, update)
     else:
         reply_message = sendMessage('No result found', context.bot, update)

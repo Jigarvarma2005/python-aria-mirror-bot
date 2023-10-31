@@ -31,8 +31,7 @@ class AriaDownloadHelper(DownloadHelper):
                     download_dict[dl.uid()].is_torrent = True
             update_all_messages()
             LOGGER.info(f'Changed gid from {gid} to {new_gid}')
-        else:
-            if dl: threading.Thread(target=dl.getListener().onDownloadComplete).start()
+        elif dl: threading.Thread(target=dl.getListener().onDownloadComplete).start()
 
     @new_thread
     def __onDownloadPause(self, api, gid):
@@ -43,8 +42,7 @@ class AriaDownloadHelper(DownloadHelper):
     @new_thread
     def __onDownloadStopped(self, api, gid):
         LOGGER.info(f"onDownloadStop: {gid}")
-        dl = getDownloadByGid(gid)
-        if dl:
+        if dl := getDownloadByGid(gid):
             dl.getListener().onDownloadError('Download stopped by user!')
 
     @new_thread

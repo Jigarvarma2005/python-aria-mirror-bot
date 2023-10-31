@@ -25,11 +25,7 @@ def _watch(bot: Bot, update: Update, args: list, isTar=False):
     except IndexError:
       qual = "best/bestvideo+bestaudio"
     reply_to = update.message.reply_to_message
-    if reply_to is not None:
-        tag = reply_to.from_user.username
-    else:
-        tag = None
-
+    tag = reply_to.from_user.username if reply_to is not None else None
     listener = MirrorListener(bot, update, isTar, tag)
     ydl = YoutubeDLHelper(listener)
     threading.Thread(target=ydl.add_download,args=(link, f'{DOWNLOAD_DIR}{listener.uid}', qual)).start()
